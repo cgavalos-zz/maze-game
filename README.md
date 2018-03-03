@@ -1,15 +1,15 @@
 # maze-game
 
 ## Development Plan
-1. Get Unity installed
-2. Create something in unity.
-3. Auto-generate anything in Unity (cubes, spheres, etc)
-4. Auto-generate anything in Unity with varying dimensions based on index, etc.
-5. Auto-generate walls in Unity (house, hallway)
+1. Get Unity installed **(done)**
+2. Create something in unity. **(done)**
+3. Auto-generate anything in Unity (cubes, spheres, etc). **(done)**
+4. Auto-generate anything in Unity with varying dimensions based on index, etc.. **(done)**
+5. Auto-generate walls in Unity (house, hallway). **(done)**
 
 ### Maze-specific
 6. Auto-generate a maze in Unity (simple)
-7. Auto-generate a tough maze
+7. Auto-generate a tough maze. **(done)**
 8. Be able to add in plazas and clearings in the maze 
 9. Be able to add in plazas and clearings in the maze while mending the walls so that paths still exist
 10. Be able to add in plazas and clearings in the maze while keeping (most) complexity
