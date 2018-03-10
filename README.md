@@ -13,7 +13,7 @@
 8. Be able to add in plazas and clearings in the maze 
 9. Be able to add in plazas and clearings in the maze while mending the walls so that paths still exist
 10. Be able to add in plazas and clearings in the maze while keeping (most) complexity
-11. Be able to dynamically close off pathways (behind the player eventually)
+11. Be able to dynamically close off pathways (behind the player eventually) **(done)**
 12. Be able to close off pathways and open up others that still lead the same way.
 
 ### Rendering-specific
