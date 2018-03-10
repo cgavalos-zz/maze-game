@@ -10,6 +10,7 @@ public class PlayerLook : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+    character = new GameObject();
   }
 
   // Update is called once per frame
@@ -25,11 +26,9 @@ public class PlayerLook : MonoBehaviour {
     Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"),
       Input.GetAxisRaw("Mouse Y"));
 
-    Debug.Log("Mouse Position: " + mouseDelta);
-
     mouseLook += mouseDelta * mouseSensitivity;
-    transform.parent.localRotation = Quaternion.AngleAxis(mouseLook.x,
-    transform.parent.up);
+    character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x,
+    character.transform.up);
     transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
 	}
 }

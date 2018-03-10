@@ -13,6 +13,12 @@ public class SpawnScript : MonoBehaviour {
   public uint mazeXSize = 39;
   public uint mazeZSize = 39;
 
+  class Test : MonoBehaviour {
+    void Update() {
+      Debug.Log("Updated");
+    }
+  }
+
   // Use this for initialization
   void Start () {
     GameObject parent = new GameObject();
