@@ -6,20 +6,30 @@ public class PlayerLook : MonoBehaviour {
 
   public float mouseSensitivity = 1.0f;
   public Vector2 mouseLook;
+  public GameObject character;
 
 	// Use this for initialization
 	void Start () {
+  }
 
-	}
+  // Update is called once per frame
+  void Update () {
+    if(Input.GetKey("escape")) {
+      if (Cursor.lockState == CursorLockMode.Locked) {
+        Cursor.lockState = CursorLockMode.None;
+      } else if (Cursor.lockState == CursorLockMode.None) {
+        Cursor.lockState = CursorLockMode.Locked;
+      }
+    }
 
-	// Update is called once per frame
-	void Update () {
-		Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"),
+    Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"),
       Input.GetAxisRaw("Mouse Y"));
 
+    Debug.Log("Mouse Position: " + mouseDelta);
+
     mouseLook += mouseDelta * mouseSensitivity;
-    transform.localRotation = Quaternion.AngleAxis(mouseLook.x, transform.up);
-    transform.localRotation = transform.localRotation *
-      Quaternion.AngleAxis(-mouseLook.y, transform.right);
+    transform.parent.localRotation = Quaternion.AngleAxis(mouseLook.x,
+    transform.parent.up);
+    transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
 	}
 }

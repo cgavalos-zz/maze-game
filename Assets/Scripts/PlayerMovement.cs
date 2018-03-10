@@ -16,11 +16,7 @@ public class PlayerMovement : MonoBehaviour {
     float forwardSpeed = Input.GetAxis("Vertical") * walkSpeed;
     float rightSpeed = Input.GetAxis("Horizontal") * walkSpeed;
 
-    transform.Translate(transform.right * rightSpeed * Time.deltaTime);
-    transform.Translate(transform.forward * forwardSpeed * Time.deltaTime);
-
-    if (Input.GetKeyDown("escape")) {
-      
-    }
+    transform.Translate(Vector3.right * rightSpeed * Time.deltaTime);
+    transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
   }
 }
