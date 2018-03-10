@@ -1,47 +1,47 @@
 using System.Collections.Generic;
 
 namespace GridGeneration {
-  class Cell {
-    public int m_row;
-    public int m_col;
+  public class Cell {
+    public int row;
+    public int col;
 
     public Cell(int row, int col) {
-      m_row = row;
-      m_col = col;
+      this.row = row;
+      this.col = col;
     }
   }
 
-  class Grid {
-    public const int m_wallValue = 0;
-    public const int m_mazeValue = 1;
+  public class Grid {
+    public const int wallValue = 0;
+    public const int mazeValue = 1;
 
-    public int[,] m_cells;
-    public uint m_numRows;
-    public uint m_numCols;
+    public int[,] cells;
+    public uint numRows;
+    public uint numCols;
 
     public Grid(uint numRows, uint numCols) {
-      m_numRows = numRows;
-      m_numCols = numCols;
-      m_cells = new int[m_numRows, m_numCols];
+      this.numRows = numRows;
+      this.numCols = numCols;
+      cells = new int[numRows, numCols];
 
       for (int row = 0; row < numRows; row++) {
         for (int col = 0; col < numCols; col++) {
-          m_cells[row, col] = m_wallValue;
+          cells[row, col] = wallValue;
         }
       }
     }
 
     public bool IsValidCell(int row, int col) {
-      return row >= 0 && col >= 0 && row < m_numRows && col < m_numCols;
+      return row >= 0 && col >= 0 && row < numRows && col < numCols;
     }
 
     public bool IsValidCell(Cell c) {
-      return IsValidCell(c.m_row, c.m_col);
+      return IsValidCell(c.row, c.col);
     }
 
     public bool MarkCell(int row, int col) {
       if (IsValidCell(row, col)) {
-        m_cells[row, col] = m_mazeValue;
+        cells[row, col] = mazeValue;
         return true;
       } else {
         return false;
@@ -49,7 +49,7 @@ namespace GridGeneration {
     }
 
     public bool MarkCell(Cell c) {
-      return MarkCell(c.m_row, c.m_col);
+      return MarkCell(c.row, c.col);
     }
 
     public List<Cell> GetWalls(int row, int col) {
@@ -60,8 +60,8 @@ namespace GridGeneration {
           // cell that is a wall.
           if (IsValidCell(wallRow, wallCol) &&
             (wallRow == row || wallCol == col) &&
-            !(wallRow == row && wallRow == col) && m_cells[wallRow, wallCol] ==
-            m_wallValue) {
+            !(wallRow == row && wallRow == col) && cells[wallRow, wallCol] ==
+            wallValue) {
             walls.Add(new Cell(wallRow, wallCol));
           }
         }
@@ -70,31 +70,31 @@ namespace GridGeneration {
     }
 
     public List<Cell> GetWalls(Cell c) {
-      return GetWalls(c.m_row, c.m_col);
+      return GetWalls(c.row, c.col);
     }
 
     public bool IsVisited(int row, int col) {
-      return !IsValidCell(row, col) || m_cells[row, col] == m_mazeValue;
+      return !IsValidCell(row, col) || cells[row, col] == mazeValue;
     }
 
     public bool IsVisited(Cell c) {
-      return IsVisited(c.m_row, c.m_col);
+      return IsVisited(c.row, c.col);
     }
 
     public bool IsMaze(int row, int col) {
-      return IsValidCell(row, col) && m_cells[row, col] == m_mazeValue;
+      return IsValidCell(row, col) && cells[row, col] == mazeValue;
     }
 
     public bool IsMaze(Cell c) {
-      return IsMaze(c.m_row, c.m_col);
+      return IsMaze(c.row, c.col);
     }
 
     public bool IsWall(int row, int col) {
-      return !IsValidCell(row, col) || m_cells[row, col] == m_wallValue;
+      return !IsValidCell(row, col) || cells[row, col] == wallValue;
     }
 
     public bool IsWall(Cell c) {
-      return IsWall(c.m_row, c.m_col);
+      return IsWall(c.row, c.col);
     }
 
     public List<Cell> DividedCells(int row, int col) {
@@ -107,7 +107,7 @@ namespace GridGeneration {
           if (IsValidCell(cellRow, cellCol) &&
             (cellRow == row || cellCol == col) &&
             !(cellRow == row && cellCol == col) &&
-            m_cells[cellRow, cellCol] == m_mazeValue) {
+            cells[cellRow, cellCol] == mazeValue) {
               dividedCells.Add(new Cell(cellRow, cellCol));
               dividedCells.Add(new Cell(row - (cellRow - row),
                 col - (cellCol - col)));
@@ -120,7 +120,7 @@ namespace GridGeneration {
     }
 
     public List<Cell> DividedCells(Cell cellPosition) {
-      return DividedCells(cellPosition.m_row, cellPosition.m_col);
+      return DividedCells(cellPosition.row, cellPosition.col);
     }
 
     public static Grid RandomizedPrim(uint numRows, uint numCols, int startingRow = 0, int startingCol = 0) {
@@ -131,7 +131,7 @@ namespace GridGeneration {
       Cell startingCell = new Cell(startingRow, startingCol);
       bool successfulMark = grid.MarkCell(startingCell);
       List<Cell> wallList = grid.GetWalls(startingCell);
-      System.Random randomNumberGen = new System.Random(1);
+      System.Random randomNumberGen = new System.Random();
 
       if (successfulMark) {
         // While there are walls in the list:

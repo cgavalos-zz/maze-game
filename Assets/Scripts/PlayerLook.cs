@@ -10,7 +10,6 @@ public class PlayerLook : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-    character = new GameObject();
   }
 
   // Update is called once per frame

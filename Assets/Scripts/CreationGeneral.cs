@@ -56,5 +56,30 @@ namespace CreationGeneral {
       ceiling.transform.localPosition = new Vector3(0.0f,
         insideY + wallThickness / 2.0f, 0.0f);
     }
+    public static void CreateMaze(float mazeHeight, float mazeHorizontalDimension, uint mazeXSize, uint mazeZSize) {
+
+      GameObject parent = new GameObject();
+      parent.name = "MazeParent";
+
+      GridGeneration.Grid grid = GridGeneration.Grid.RandomizedPrim(mazeZSize, mazeXSize);
+      uint cellNum = 0;
+
+      for (int row = 0; row < grid.numRows; row++) {
+        for (int col = 0; col < grid.numCols; col++) {
+          if (grid.IsWall(row, col)) {
+            cellNum++;
+            GameObject tempCell = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            tempCell.transform.parent = parent.transform;
+            tempCell.name = "MazePart" + cellNum.ToString();
+            tempCell.transform.localScale = new Vector3(mazeHorizontalDimension,
+              mazeHeight, mazeHorizontalDimension);
+            tempCell.transform.localPosition = new Vector3(
+              col * mazeHorizontalDimension + mazeHorizontalDimension / 2.0f,
+              mazeHeight / 2.0f,
+              row * mazeHorizontalDimension + mazeHorizontalDimension / 2.0f);
+          }
+        }
+      }
+    }
   }
 }
