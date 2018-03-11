@@ -7,8 +7,8 @@ using GridGeneration;
 using CreationGeneral;
 using WallManagement;
 
-public class SpawnScript : MonoBehaviour {
-
+public class SpawnScript : MonoBehaviour
+{
   public WallManager manager;
   public float wallHeight = 6.0f;
   public float wallHorizontalDimension = 3.0f;
@@ -16,8 +16,12 @@ public class SpawnScript : MonoBehaviour {
   public uint mazeCols = 39;
 
   // Use this for initialization
-  void Start () {
-    manager = new WallManager(GridGeneration.Grid.RandomizedPrim(mazeRows, mazeCols), wallHeight, wallHorizontalDimension);
+  void Start ()
+  {
+    manager =
+      new WallManager(GridGeneration.Grid.RandomizedPrim(mazeRows, mazeCols),
+                      wallHeight,
+                      wallHorizontalDimension);
     InterpData data = new InterpData();
     data.startTime = Time.time;
     data.endTime = data.startTime + 10.0f;
@@ -32,7 +36,8 @@ public class SpawnScript : MonoBehaviour {
   }
 
   // Update is called once per frame
-  void Update () {
+  void Update ()
+  {
     manager.Update();
   }
 }

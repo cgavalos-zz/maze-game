@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
-
+public class PlayerMovement : MonoBehaviour
+{
   public float walkSpeed = 1.0f;
 
   // Use this for initialization
-  void Start () {
-
-  }
+  void Start () {}
 
   // Update is called once per frame
-  void Update () {
+  void Update ()
+  {
     float forwardSpeed = Input.GetAxis("Vertical") * walkSpeed;
     float rightSpeed = Input.GetAxis("Horizontal") * walkSpeed;
 
