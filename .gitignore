@@ -35,5 +35,4 @@ sysinfo.txt
 *.unitypackage
 
 # Documentation
-Documentation/
-!Documentation/Doxyfile
+Documentation/doxygen
