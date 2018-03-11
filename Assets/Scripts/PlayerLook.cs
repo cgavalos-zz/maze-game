@@ -2,19 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using InputAssist;
+
 public class PlayerLook : MonoBehaviour
 {
   public float mouseSensitivity = 1.0f;
   public Vector2 mouseLook;
   public GameObject character;
+  public Stopper stopper;
 
   // Use this for initialization
-  void Start () {}
+  void Start ()
+  {
+    stopper = new Stopper();
+  }
 
   // Update is called once per frame
   void Update ()
   {
-    if(Input.GetKey("escape"))
+    if(stopper.Update(Input.GetKey("escape")))
     {
       if (Cursor.lockState == CursorLockMode.Locked)
       {
