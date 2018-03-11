@@ -52,8 +52,8 @@ namespace CreationGeneral
                                                    wallHeight, wallThickness);
       frontWall.transform.localPosition = new Vector3(-doorWidth / 2.0f,
                                                       wallHeight / 2.0f,
-                                                      -(insideZ / 2 +
-                                                        wallThickness / 2));
+                                                      -(insideZ / 2.0f +
+                                                        wallThickness / 2.0f));
 
       GameObject backWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
       backWall.transform.localScale = new Vector3(insideX,
@@ -61,7 +61,7 @@ namespace CreationGeneral
       backWall.transform.localPosition = new Vector3(
         0.0f,
         wallHeight / 2.0f,
-        insideZ / 2 + wallThickness / 2);
+        insideZ / 2.0f + wallThickness / 2.0f);
 
       GameObject ceiling = GameObject.CreatePrimitive(PrimitiveType.Cube);
       ceiling.transform.localScale = new Vector3(insideX, wallThickness,

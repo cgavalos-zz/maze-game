@@ -11,7 +11,7 @@
 6. Auto-generate a maze in Unity (simple) (Use binary method?)
 7. Auto-generate a tough maze. **(done)**
 8. Be able to add in plazas and clearings in the maze **(done)**
-9. Be able to add in plazas and clearings in the maze while mending the walls so that paths still exist (add fix option to make pathways one block wide excepting plazas)
+9. Be able to add in plazas and clearings in the maze while mending the walls so that paths still exist (add fix option to make pathways one block wide excepting plazas) **(done)**
 10. Be able to add in plazas and clearings in the maze while keeping (most) complexity **(done)**
 11. Be able to dynamically close off pathways (behind the player eventually) **(done)**
 12. Be able to close off pathways and open up others that still lead the same way.

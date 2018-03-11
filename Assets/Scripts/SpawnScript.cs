@@ -14,6 +14,8 @@ public class SpawnScript : MonoBehaviour
   public float wallHorizontalDimension = 3.0f;
   public uint mazeRows = 39;
   public uint mazeCols = 39;
+  protected bool hasDone;
+  protected float start;
 
   // Use this for initialization
   void Start ()
@@ -32,12 +34,20 @@ public class SpawnScript : MonoBehaviour
 
     manager.moveData.Add(data);
 
-    manager.CreateClearedWalledClearingNow(5, 20, 5, 20, 20.0f);
+    manager.CreateClearedWalledClearingNow(5, 20, 5, 20, 0.0f);
+    hasDone = false;
+    start = Time.time;
   }
 
   // Update is called once per frame
   void Update ()
   {
+    if (Time.time - start > 1.0f && !hasDone)
+    {
+      hasDone = true;
+      manager.FixWidePathways(0, 10, 0, 10, 1.0f, 10.0f);
+    }
+
     manager.Update();
   }
 }
