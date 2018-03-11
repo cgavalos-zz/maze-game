@@ -140,10 +140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c24565fec630245a2baf7cecdff43fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mazeHeight: 4
-  mazeHorizontalDimension: 2
-  mazeXSize: 39
-  mazeZSize: 39
+  wallHeight: 6
+  wallHorizontalDimension: 3
+  mazeRows: 39
+  mazeCols: 39
 --- !u!4 &157857947
 Transform:
   m_ObjectHideFlags: 0
