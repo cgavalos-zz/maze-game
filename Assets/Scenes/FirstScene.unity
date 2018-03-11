@@ -142,8 +142,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallHeight: 6
   wallHorizontalDimension: 3
-  mazeRows: 39
-  mazeCols: 39
+  mazeRows: 101
+  mazeCols: 101
 --- !u!4 &157857947
 Transform:
   m_ObjectHideFlags: 0

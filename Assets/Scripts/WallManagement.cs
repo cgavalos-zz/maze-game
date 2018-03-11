@@ -58,6 +58,7 @@ namespace WallManagement
           else if (grid.cells[row, col] == GridGeneration.Grid.mazeValue)
           {
             cellQuality = 0.0f;
+            tempCell.GetComponent<Renderer>().enabled = false;
           }
 
           tempCell.transform.localScale = new Vector3(wallHorizontalDimension,
@@ -416,12 +417,30 @@ namespace WallManagement
                           data.endHeightQuality), oldPos.z);
           walls[data.wallRow, data.wallCol].transform.localPosition = newPos;
           qualities[data.wallRow, data.wallCol] = data.endHeightQuality;
+
+          if (data.endHeightQuality > 0.0f)
+          {
+            walls[data.wallRow,
+                  data.wallCol].GetComponent<Renderer>().enabled = true;
+          }
+          else
+          {
+            walls[data.wallRow,
+                  data.wallCol].GetComponent<Renderer>().enabled = false;
+          }
         }
         else
         {
           float heightQuality = linterp(timeQuality,
                                         data.startHeightQuality,
                                         data.endHeightQuality);
+
+          if (heightQuality > 0.0f)
+          {
+            walls[data.wallRow,
+                  data.wallCol].GetComponent<Renderer>().enabled = true;
+          }
+
           Vector3 oldPos =
             walls[data.wallRow, data.wallCol].transform.localPosition;
           Vector3 newPos =
