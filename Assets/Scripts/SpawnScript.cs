@@ -34,7 +34,7 @@ public class SpawnScript : MonoBehaviour
 
     manager.moveData.Add(data);
 
-    manager.CreateClearedWalledClearingNow(5, 20, 5, 20, 0.0f);
+    manager.CreateClearedWalledClearingNow(5, 20, 5, 20, 1.0f);
     hasDone = false;
     start = Time.time;
   }
@@ -42,12 +42,12 @@ public class SpawnScript : MonoBehaviour
   // Update is called once per frame
   void Update ()
   {
+    manager.Update();
+
     if (Time.time - start > 1.0f && !hasDone)
     {
       hasDone = true;
-      manager.FixWidePathways(0, 10, 0, 10, 1.0f, 10.0f);
+      manager.FixWidePathways(0, 38, 0, 38, Time.time, 1.0f);
     }
-
-    manager.Update();
   }
 }

@@ -34,6 +34,9 @@
 * Eventual seamless support for dynamic mazes (sections being renovated/removed in real time based on “feedback”)
 
 ## Planned Features (definite):
+* Different Game Types (choose whichever one the player says they're worse at):
+  * Escape
+  * Kill the Monster
 * Actual tunnel vision. 
   * Edges of screen close in to small circles that let the player see the environment. 
   * Tunnel vision in proportion to heart rate.
