@@ -2,9 +2,16 @@ using System.Collections.Generic;
 
 namespace GridGeneration
 {
+  /// @brief Holds the position of a cell. Used instead of a Tuple due to Unity
+  /// using an earlier version of C#.
+  ///
   public class Cell
   {
+    /// The row of the cell.
+    ///
     public int row;
+    /// The column of the cell.
+    ///
     public int col;
 
     public Cell(int row, int col)
@@ -16,11 +23,22 @@ namespace GridGeneration
 
   public class Grid
   {
+    /// Holds the value that is used to denote a wall in the cells array.
+    ///
     public const int wallValue = 0;
+    /// Holds the value that is used to denote a maze section (floor) in the
+    /// cells array.
+    ///
     public const int mazeValue = 1;
 
+    /// Holds the wall/floor status of each cell.
+    ///
     public int[,] cells;
+    /// The number of rows of cells.
+    ///
     public uint numRows;
+    /// The number of columns of cells.
+    ///
     public uint numCols;
 
     public Grid(uint numRows, uint numCols)
@@ -38,16 +56,27 @@ namespace GridGeneration
       }
     }
 
+    /// @brief Tests whether the cell is inside the grid.
+    /// @param row [in] The row of the cell.
+    /// @param col [in] The column of the cell.
+    ///
     public bool IsValidCell(int row, int col)
     {
       return row >= 0 && col >= 0 && row < numRows && col < numCols;
     }
 
+    /// @brief Tests whether the cell is inside the grid.
+    /// @param c [in] The tested Cell.
+    ///
     public bool IsValidCell(Cell c)
     {
       return IsValidCell(c.row, c.col);
     }
 
+    /// @brief Marks a cell as a floor (part of the maze).
+    /// @param row [in] The row of the cell.
+    /// @param col [in] The column of the cell.
+    ///
     public bool MarkCell(int row, int col)
     {
       if (IsValidCell(row, col))
@@ -61,11 +90,18 @@ namespace GridGeneration
       }
     }
 
+    // @brief Marks a cell as a floor (part of the maze).
+    /// @param c [in] The targetted Cell.
+    ///
     public bool MarkCell(Cell c)
     {
       return MarkCell(c.row, c.col);
     }
 
+    /// @brief Gets the walls adjacent to the given cell.
+    /// @param row [in] The row of the cell.
+    /// @param col [in] The column of the cell.
+    ///
     public List<Cell> GetWalls(int row, int col)
     {
       List<Cell> walls = new List<Cell>();
@@ -89,41 +125,73 @@ namespace GridGeneration
       return walls;
     }
 
+    /// @brief Gets the walls adjacent to the given cell.
+    /// @param c [in] The given Cell.
+    ///
     public List<Cell> GetWalls(Cell c)
     {
       return GetWalls(c.row, c.col);
     }
 
+    /// @brief Tests if the cell is "visited" by the criteria of Prim's
+    /// algorithm.
+    /// @param row [in] The row of the cell.
+    /// @param col [in] The column of the cell.
+    ///
     public bool IsVisited(int row, int col)
     {
       return !IsValidCell(row, col) || cells[row, col] == mazeValue;
     }
 
+    /// @brief Tests if the cell is "visited" by the criteria of Prim's
+    /// algorithm.
+    /// @param c [in] The tested Cell.
+    ///
     public bool IsVisited(Cell c)
     {
       return IsVisited(c.row, c.col);
     }
 
+    /// @brief Tests if a cell is part of the maze by the criteria of Prim's
+    /// algorithm.
+    /// @param row [in] The row of the cell.
+    /// @param col [in] The column of the cell.
+    ///
     public bool IsMaze(int row, int col)
     {
       return IsValidCell(row, col) && cells[row, col] == mazeValue;
     }
 
+    /// @brief Tests if a cell is part of the maze by the criteria of Prim's
+    /// algorithm.
+    /// @param c [in] The tested Cell.
+    ///
     public bool IsMaze(Cell c)
     {
       return IsMaze(c.row, c.col);
     }
 
+    /// @brief Tests if a cell is a wall by the criteria of Prim's algorithm.
+    /// @param row [in] The row of the cell.
+    /// @param col [in] The column of the cell.
+    ///
     public bool IsWall(int row, int col)
     {
       return !IsValidCell(row, col) || cells[row, col] == wallValue;
     }
 
+    /// @brief Tests if a cell is a wall by the criteria of Prim's algorithm.
+    /// @param c [in] The tested Cell.
+    ///
     public bool IsWall(Cell c)
     {
       return IsWall(c.row, c.col);
     }
 
+    /// @brief Returns the cells in the maze that are divided by the given cell.
+    /// @param row [in] The row of the cell.
+    /// @param col [in] The column of the cell.
+    ///
     public List<Cell> DividedCells(int row, int col)
     {
       List<Cell> dividedCells = new List<Cell>();
@@ -150,11 +218,21 @@ namespace GridGeneration
       return dividedCells;
     }
 
+    /// @brief Returns the cells in the maze that are divided by the given cell.
+    ///
     public List<Cell> DividedCells(Cell cellPosition)
     {
       return DividedCells(cellPosition.row, cellPosition.col);
     }
 
+    /// @brief Generates a maze grid using a randomized Prim's algorithm.
+    /// @param numRows [in] The number of rows in the final grid.
+    /// @param numCols [in] The number of columns in the final grid.
+    /// @param startingRow [in] The row in the grid that the algorithm
+    /// generates from.
+    /// @param startingRow [in] The column in the grid that the algorithm
+    /// generates from.
+    ///
     public static Grid RandomizedPrim(uint numRows, uint numCols,
                                       int startingRow = 0,
                                       int startingCol = 0)

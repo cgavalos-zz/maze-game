@@ -16,13 +16,29 @@ namespace WallManagement
 
   public class WallManager
   {
+    /// An array of each GameObject corresponding to each wall in the maze.
+    ///
     public GameObject[,] walls;
+    /// The quality of the vertical positions of each wall in the maze.
+    ///
     public float[,] qualities;
+    /// The height of each wall in the maze.
+    ///
     public float wallHeight;
+    /// The number of rows in the maze.
+    ///
     public uint numRows;
+    /// The number of columns in the maze.
+    ///
     public uint numCols;
+    /// The width and depth of each wall in the maze.
+    ///
     public float wallHorizontalDimension;
+    /// The list of move actions that walls in the maze will take over time.
+    ///
     public List<InterpData> moveData;
+    /// The GameObject that will parent every wall in the maze.
+    ///
     public GameObject mazeParent;
 
     public WallManager(GridGeneration.Grid grid, float wallHeight,
@@ -88,16 +104,33 @@ namespace WallManagement
       }
     }
 
+    /// @brief Interpolates linearly between a and b based on quality.
+    ///
     public float linterp(float quality, float a, float b)
     {
       return quality * (b - a) + a;
     }
 
+    /// @brief Returns the vertical position of a wall based on the quality.
+    ///
     public float yPosFromHeightQuality(float heightQuality)
     {
       return linterp(heightQuality, -wallHeight / 2.0f, wallHeight / 2.0f);
     }
 
+    /// @brief Creates a block of cells of the given quality. A quality of 1.0f
+    /// would generate a thin wall.
+    /// @param startingRow [in] The bottom bound of the given box of cells.
+    /// @param endingRow [in] The top bound of the given box of cells.
+    /// @param startingColumn [in] The left bound of the given box of cells.
+    /// @param endingColumn [in] The right bound of the given box of cells.
+    /// @param timeStart [in] The Time.time at which the clearing will start to
+    /// appear.
+    /// @param timeTaken [in] The time it will take for the clearing to fully
+    /// appear.
+    /// @param finalQuality [in] The quality of each cell after the move action
+    /// is completed.
+    ///
     public void BlockInterpolate(uint startingRow, uint endingRow,
                                  uint startingColumn, uint endingColumn,
                                  float timeStart, float timeTaken,
@@ -138,6 +171,19 @@ namespace WallManagement
                      timeTaken);
     }
 
+    /// @brief Creates an "outline" of cells the given quality. A quality of
+    /// 1.0f would generate a thin wall.
+    /// @param startingRow [in] The bottom bound of the given box of cells.
+    /// @param endingRow [in] The top bound of the given box of cells.
+    /// @param startingColumn [in] The left bound of the given box of cells.
+    /// @param endingColumn [in] The right bound of the given box of cells.
+    /// @param timeStart [in] The Time.time at which the clearing will start to
+    /// appear.
+    /// @param timeTaken [in] The time it will take for the clearing to fully
+    /// appear.
+    /// @param finalQuality [in] The quality of each cell after the move action
+    /// is completed.
+    ///
     public void OutlineInterpolate(uint startingRow, uint endingRow,
                                    uint startingColumn, uint endingColumn,
                                    float timeStart, float timeTaken,
@@ -157,7 +203,17 @@ namespace WallManagement
                        finalQuality);
     }
 
-    // Does not error check. Please be careful.
+    /// @brief Creates a clearing with a walled border. Does not error check,
+    /// please be careful.
+    /// @param startingRow [in] The bottom bound of the given box of cells.
+    /// @param endingRow [in] The top bound of the given box of cells.
+    /// @param startingColumn [in] The left bound of the given box of cells.
+    /// @param endingColumn [in] The right bound of the given box of cells.
+    /// @param timeStart [in] The Time.time at which the clearing will start to
+    /// appear.
+    /// @param timeTaken [in] The time it will take for the clearing to fully
+    /// appear.
+    ///
     public void CreateWalledClearing(uint startingRow, uint endingRow,
                                      uint startingColumn, uint endingColumn,
                                      float timeStart,
@@ -172,6 +228,14 @@ namespace WallManagement
                      timeTaken);
     }
 
+    /// @brief Creates a clearing with a walled border.
+    /// @param startingRow [in] The bottom bound of the given box of cells.
+    /// @param endingRow [in] The top bound of the given box of cells.
+    /// @param startingColumn [in] The left bound of the given box of cells.
+    /// @param endingColumn [in] The right bound of the given box of cells.
+    /// @param timeTaken [in] The time it will take for the clearing to fully
+    /// appear.
+    ///
     public void CreateWalledClearingNow(uint startingRow, uint endingRow,
                                         uint startingColumn, uint endingColumn,
                                         float timeTaken)
@@ -181,6 +245,16 @@ namespace WallManagement
                            timeTaken);
     }
 
+    /// @brief Creates a walled clearing with a border of cleared cells.
+    /// @param startingRow [in] The bottom bound of the given box of cells.
+    /// @param endingRow [in] The top bound of the given box of cells.
+    /// @param startingColumn [in] The left bound of the given box of cells.
+    /// @param endingColumn [in] The right bound of the given box of cells.
+    /// @param timeStart [in] The Time.time at which the clearing will start to
+    /// appear.
+    /// @param timeTaken [in] The time it will take for the clearing to fully
+    /// appear.
+    ///
     public void CreateClearedWalledClearing(uint startingRow, uint endingRow,
                                             uint startingColumn,
                                             uint endingColumn, float timeStart,
@@ -194,6 +268,14 @@ namespace WallManagement
                            timeTaken);
     }
 
+    /// @brief Creates a walled clearing with a border of cleared cells now.
+    /// @param startingRow [in] The bottom bound of the given box of cells.
+    /// @param endingRow [in] The top bound of the given box of cells.
+    /// @param startingColumn [in] The left bound of the given box of cells.
+    /// @param endingColumn [in] The right bound of the given box of cells.
+    /// @param timeTaken [in] The time it will take for the clearing to fully
+    /// appear.
+    ///
     public void CreateClearedWalledClearingNow(uint startingRow, uint endingRow,
                                                uint startingColumn,
                                                uint endingColumn,
@@ -204,6 +286,10 @@ namespace WallManagement
                                   timeTaken);
     }
 
+    /// @brief Tests if the given cell is empty (not a wall and valid).
+    /// @param row [in] The row of the tested cell.
+    /// @param col [in] The column of the tested cell.
+    ///
     public bool IsEmpty(int row, int col)
     {
       // Invalid cells are not empty.
@@ -217,6 +303,13 @@ namespace WallManagement
       }
     }
 
+    /// @brief Tests if the 2x2 specified by row and col is entirely empty
+    /// (without walls).
+    /// @param row [in] The row of the bottom left cell of the 2x2 block to be
+    /// fixed.
+    /// @param col [in] The column of the bottom left cell of the 2x2 block
+    /// to be fixed.
+    ///
     public bool IsEmpty2by2(int row, int col)
     {
       return IsEmpty(row, col) &&
@@ -225,6 +318,17 @@ namespace WallManagement
              IsEmpty(row + 1, col + 1);
     }
 
+    /// @brief Unused function that tests if every edge cell that is empty would
+    /// have at least one empty adjacent cell. Unused currently.
+    /// @param row [in] The row of the bottom left cell of the 2x2 block to be
+    /// fixed.
+    /// @param col [in] The column of the bottom left cell of the 2x2 block
+    /// to be fixed.
+    /// @param subRow [in] The row of the cell in the 2x2 block that would have
+    /// been raised.
+    /// @param subCol [in] The column of the cell in the 2x2 block that would
+    /// have been raised.
+    ///
     public bool EmptyEdgeCellsHaveEmptyAdjacents(int row, int col, int subRow,
                                                  int subCol)
     {
@@ -264,6 +368,17 @@ namespace WallManagement
       }
     }
 
+    /// @brief Tests if every empty cell in a 4x4 block containing a fixed 2x2
+    /// block can be reached after the fixed cell is turned into a wall.
+    /// @param row [in] The row of the bottom left cell of the 2x2 block to be
+    /// fixed.
+    /// @param col [in] The column of the bottom left cell of the 2x2 block
+    /// to be fixed.
+    /// @param subRow [in] The row of the cell in the 2x2 block that would have
+    /// been raised.
+    /// @param subCol [in] The column of the cell in the 2x2 block that would
+    /// have been raised.
+    ///
     public bool AllEmptiesReachable(int row, int col, int subRow, int subCol)
     {
       bool[,] isEmpty = new bool[4, 4];
@@ -343,6 +458,16 @@ namespace WallManagement
       return true;
     }
 
+    /// @brief Fixes a 2x2 block of the grid such that paths will be maintained.
+    /// @param row [in] The row of the bottom left cell of the 2x2 block.
+    /// @param col [in] The column of the bottom left cell of the 2x2 block.
+    /// @param randomNumberGen [in] A random number generator used between fix
+    /// invocations in order to preserve randomness. Used to select the wall in
+    /// the 2x2 block that is fixed.
+    /// @param timeStart [in] The Time.time at which the fixed wall will begin
+    /// to move.
+    /// @param timeTaken [in] How long the fixed wall will move for.
+    ///
     public void Fix2by2(int row, int col, System.Random randomNumberGen,
                         float timeStart,
                         float timeTaken)
@@ -378,6 +503,15 @@ namespace WallManagement
       }
     }
 
+    /// @brief Raises walls in order to thin as many passageways as possible.
+    /// @param startRow [in] The bottom bound of the box that will be fixed.
+    /// @param endRow [in] The top bound of the box that will be fixed.
+    /// @param startCol [in] The left bound of the box that will be fixed.
+    /// @param endCol [in] The right bound of the box that will be fixed.
+    /// @param timeStart [in] The Time.time at which each fixed wall will begin
+    /// to move.
+    /// @param timeTaken [in] How long each fixed wall will move for.
+    ///
     public void FixWidePathways(uint startRow, uint endRow, uint startCol,
                                 uint endCol, float timeStart,
                                 float timeTaken)
@@ -393,6 +527,8 @@ namespace WallManagement
       }
     }
 
+    /// @brief Positions each wall depending on the state of their move action.
+    ///
     public void Update()
     {
       int index = 0;

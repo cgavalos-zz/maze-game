@@ -4,6 +4,8 @@ namespace CreationGeneral
 {
   public class Creation : MonoBehaviour
   {
+    /// @brief Creates cubes with varying dimensions based on their number.
+    ///
     public static void VaryingDimensions()
     {
       for (int i = 0; i < 10; i++)
@@ -15,6 +17,8 @@ namespace CreationGeneral
       }
     }
 
+    /// @brief Creates a simple hallway by manipulating the scale of cubes.
+    ///
     public static void CreateHallway()
     {
       GameObject leftWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -26,6 +30,8 @@ namespace CreationGeneral
       rightWall.transform.localScale = new Vector3(1.0f, 10.0f, 10.0f);
     }
 
+    /// @brief Creates a hut-looking house by scaling cubes.
+    ///
     public static void CreateHouse()
     {
       float wallHeight = 8.0f;
@@ -72,6 +78,12 @@ namespace CreationGeneral
         2.0f, 0.0f);
     }
 
+    /// @brief Creates a maze using a randomized Prim's algorithm.
+    /// @param mazeHeight [in] The height of each wall in game units.
+    /// @param mazeHorizontalDimension [in] The width and depth of walls.
+    /// @param mazeXSize [in] The number of columns of walls in the maze.
+    /// @param mazeZSize [in] The number of rows of walls in the maze.
+    ///
     public static void CreateMaze(float mazeHeight,
                                   float mazeHorizontalDimension, uint mazeXSize,
                                   uint mazeZSize)
