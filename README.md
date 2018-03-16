@@ -8,7 +8,7 @@
 5. Auto-generate walls in Unity (house, hallway). **(done)**
 
 ### Maze-specific
-6. Auto-generate a maze in Unity (simple) (Use binary method?)
+6. Auto-generate a maze in Unity (simple) (Use binary method?) **(done)**
 7. Auto-generate a tough maze. **(done)**
 8. Be able to add in plazas and clearings in the maze **(done)**
 9. Be able to add in plazas and clearings in the maze while mending the walls so that paths still exist (add fix option to make pathways one block wide excepting plazas) **(done)**
