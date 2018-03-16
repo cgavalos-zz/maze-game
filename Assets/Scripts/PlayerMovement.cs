@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-  public float walkSpeed = 1.0f;
+  public float walkForce = 100.0f;
+
+  public Rigidbody rb;
 
   // Use this for initialization
   void Start () {}
@@ -12,10 +14,11 @@ public class PlayerMovement : MonoBehaviour
   // Update is called once per frame
   void Update ()
   {
-    float forwardSpeed = Input.GetAxis("Vertical") * walkSpeed;
-    float rightSpeed = Input.GetAxis("Horizontal") * walkSpeed;
+    Vector3 direction = Vector3.Normalize(
+      transform.right * Input.GetAxis("Horizontal")
+      + transform.forward * Input.GetAxis("Vertical"));
 
-    transform.Translate(Vector3.right * rightSpeed * Time.deltaTime);
-    transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
+    rb.AddForce(direction * walkForce,
+                ForceMode.Force);
   }
 }

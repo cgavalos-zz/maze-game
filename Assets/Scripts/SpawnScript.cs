@@ -20,8 +20,11 @@ public class SpawnScript : MonoBehaviour
   // Use this for initialization
   void Start ()
   {
+    GridGeneration.Grid grid = GridGeneration.Grid.RandomizedPrim(mazeRows,
+                                                                  mazeCols);
+    grid.Decimate(0.8, true);
     manager =
-      new WallManager(GridGeneration.Grid.RandomizedPrim(mazeRows, mazeCols),
+      new WallManager(grid,
                       wallHeight,
                       wallHorizontalDimension);
     InterpData data = new InterpData();
@@ -44,10 +47,10 @@ public class SpawnScript : MonoBehaviour
   {
     manager.Update();
 
-    if (Time.time - start > 1.0f && !hasDone)
+    if (Time.time - start > 2.0f && !hasDone)
     {
       hasDone = true;
-      manager.FixWidePathways(0, 38, 0, 38, Time.time, 1.0f);
+      manager.FixWidePathways(0, mazeRows, 0, mazeCols, Time.time, 2.0f);
     }
   }
 }

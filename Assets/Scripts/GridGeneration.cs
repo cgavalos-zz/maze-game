@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System;
+using UnityEngine;
 
 namespace GridGeneration
 {
@@ -283,6 +285,125 @@ namespace GridGeneration
       }
 
       return grid;
+    }
+
+    public uint GetNumWalls()
+    {
+      uint num = 0;
+
+      for (uint row = 0; row < numRows; row++)
+      {
+        for (uint col = 0; col < numCols; col++)
+        {
+          if (cells[row, col] == mazeValue)
+          {
+            num++;
+          }
+        }
+      }
+
+      return num;
+    }
+
+    public uint GetNumCells()
+    {
+      return numRows * numCols;
+    }
+
+    public uint GetNumMazeCells()
+    {
+      return GetNumCells() - GetNumWalls();
+    }
+
+    public List<Cell> GetAllWalls()
+    {
+      List<Cell> wallList = new List<Cell>();
+
+      for (uint row = 0; row < numRows; row++)
+      {
+        for (uint col = 0; col < numCols; col++)
+        {
+          if (cells[row, col] == wallValue)
+          {
+            wallList.Add(new Cell((int)row, (int)col));
+          }
+        }
+      }
+
+      return wallList;
+    }
+
+    public List<Cell> GetAllMazeCells()
+    {
+      List<Cell> cellList = new List<Cell>();
+
+      for (uint row = 0; row < numRows; row++)
+      {
+        for (uint col = 0; col < numCols; col++)
+        {
+          if (cells[row, col] == mazeValue)
+          {
+            cellList.Add(new Cell((int)row, (int)col));
+          }
+        }
+      }
+
+      return cellList;
+    }
+
+    /// @brief Reduces the number of walls in the maze by a factor of the
+    /// decimation ratio. Decimation ratios outside of [0, 1] are ignored.
+    /// @param desiredDecimationRatio [in] The ratio of the number of wall cells
+    /// after decimation to the number of wall cells before decimation.
+    /// @param actualRatioAllowedHigh [in] Whether the actual decimation ratio
+    /// is allowed to be higher than the given decimation
+    /// @returns The actual decimation ratio.
+    ///
+    public double Decimate(double desiredDecimationRatio,
+                           bool actualRatioAllowedHigh)
+    {
+      if (0.0 <= desiredDecimationRatio && desiredDecimationRatio <= 1.0)
+      {
+        uint numWalls = GetNumWalls();
+        double numWallsAfterDecimation = numWalls * desiredDecimationRatio;
+        Debug.Log(numWallsAfterDecimation);
+        Debug.Log(numWalls);
+        uint numWallsToRemove;
+
+        if (actualRatioAllowedHigh)
+        {
+          numWallsToRemove = numWalls - (uint)Math.Ceiling(
+            numWallsAfterDecimation);
+        }
+        else
+        {
+          numWallsToRemove = numWalls - (uint)Math.Floor(
+            numWallsAfterDecimation);
+        }
+
+
+        Debug.Log(numWallsToRemove);
+
+        if (numWallsToRemove > 0)
+        {
+          List<Cell> walls = GetAllWalls();
+          Debug.Log(walls.Count);
+
+          System.Random randomNumberGen = new System.Random();
+
+          for (uint i = 0; i < numWallsToRemove; i++)
+          {
+            int removedWallIndex = randomNumberGen.Next(walls.Count);
+            Cell removedWallCell = walls[removedWallIndex];
+            walls.RemoveAt(removedWallIndex);
+            cells[removedWallCell.row, removedWallCell.col] = mazeValue;
+          }
+        }
+
+        return (double)numWallsAfterDecimation / (double)numWalls;
+      }
+
+      return 1.0;
     }
   }
 }
